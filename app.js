@@ -1,17 +1,26 @@
+const path = require('path');
+
 const express = require('express');
-const bodyParser = require('body-parser');//Needed for body data parsing, added as a request handler
+const bodyParser = require('body-parser');
 
 const app = express();
 
-const adminRoute = require('./routes/admin');
-const shopRoute = require('./routes/shop');
-app.use(bodyParser.urlencoded({extended:false}));
+//Set templating engine
+app.set('view engine','ejs');
+//Affirm where to find the template views
+app.set('views','views');
+const errorController = require('./controllers/error.js')
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 
-app.use('/admin',adminRoute);
-app.use(shopRoute);
+//set bodyparser as requesthandler and parse the data
+app.use(bodyParser.urlencoded({extended: false}));
+//tell express where to find static files 
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req,res,next)=>{
-    res.status(404).send('<h1>ERROR PAGE PULLED</h1>');
-})
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
+
+app.use(errorController.get404);
 
 app.listen(3000);
