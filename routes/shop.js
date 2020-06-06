@@ -12,7 +12,7 @@ router.get('/products', shopController.getProducts);
 
 router.get('/products/:productId');
 
-router.get('/cart', shopController.getCart);
+get('/cart', shopController.getCart);
 
 router.get('/orders', shopController.getOrders);
 
