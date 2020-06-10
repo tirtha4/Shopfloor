@@ -2,7 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const db = require('./util/database')
 const app = express();
 
 //Set templating engine
@@ -12,6 +12,8 @@ app.set('views','views');
 const errorController = require('./controllers/error.js')
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+
+db.execute('SELECT * FROM products').then().catch()
 
 //set bodyparser as requesthandler and parse the data
 app.use(bodyParser.urlencoded({extended: false}));
