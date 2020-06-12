@@ -13,7 +13,13 @@ const errorController = require('./controllers/error.js')
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
-db.execute('SELECT * FROM products').then().catch()
+db.execute('SELECT * FROM products')
+.then((result)=>{
+    console.log(result);
+
+}).catch((err)=>{
+    console.log("error",err)
+})
 
 //set bodyparser as requesthandler and parse the data
 app.use(bodyParser.urlencoded({extended: false}));
